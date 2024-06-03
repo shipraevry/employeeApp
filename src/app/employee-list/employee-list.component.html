@@ -1,0 +1,8 @@
+<div class="container">
+  <h2>Employee List</h2>
+  <ul class="list-group">
+    <li *ngFor="let employee of employees" class="list-group-item">
+      {{ employee.name }} - {{ employee.email }} - {{ employee.phone }} - {{ employee.gender }} - {{ employee.department }} - {{ employee.fullTime ? 'Full Time' : 'Part Time' }}
+    </li>
+  </ul>
+</div>

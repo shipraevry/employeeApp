@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <h2>Add Employee</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" class="form-control" formControlName="name">
+      <div *ngIf="employeeForm.get('name')?.touched && employeeForm.get('name')?.invalid" class="text-danger">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" class="form-control" formControlName="email">
+      <div *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid" class="text-danger">
+        <div *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required.</div>
+        <div *ngIf="employeeForm.get('email')?.errors?.['email']">Email is not valid.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="text" id="phone" class="form-control" formControlName="phone">
+      <div *ngIf="employeeForm.get('phone')?.touched && employeeForm.get('phone')?.invalid" class="text-danger">
+        <div *ngIf="employeeForm.get('phone')?.errors?.['required']">Phone is required.</div>
+        <div *ngIf="employeeForm.get('phone')?.errors?.['pattern']">Phone must be 10 digits.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Gender</label>
+      <div>
+        <div class="form-check form-check-inline">
+          <input type="radio" id="genderMale" class="form-check-input" formControlName="gender" value="male">
+          <label for="genderMale" class="form-check-label">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input type="radio" id="genderFemale" class="form-check-input" formControlName="gender" value="female">
+          <label for="genderFemale" class="form-check-label">Female</label>
+        </div>
+        <div *ngIf="employeeForm.get('gender')?.touched && employeeForm.get('gender')?.invalid" class="text-danger">
+          Gender is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="department" class="form-label">Department</label>
+      <select id="department" class="form-control" formControlName="department">
+        <option value="" disabled>Select Department</option>
+        <option *ngFor="let department of ['HR', 'Engineering', 'Marketing']" [value]="department">{{ department }}</option>
+      </select>
+      <div *ngIf="employeeForm.get('department')?.touched && employeeForm.get('department')?.invalid" class="text-danger">
+        Department is required.
+      </div>
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" id="fullTime" class="form-check-input" formControlName="fullTime">
+      <label for="fullTime" class="form-check-label">Full Time</label>
+    </div>    
+
+    <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
+  </form>
+</div>
